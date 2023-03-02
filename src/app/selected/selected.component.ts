@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { PokemonService } from '../pokemon.service';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-selected',

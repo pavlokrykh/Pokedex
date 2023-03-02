@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy,  OnInit,  QueryList,  ViewChildren } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { PokemonService } from './pokemon.service';
+import { PokemonService } from './services/pokemon.service';
 import { PokemonComponent } from './pokemon/pokemon.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChildren(PokemonComponent) all_pokemons?: QueryList<PokemonComponent>;
+  @ViewChildren(PokemonComponent) allPokemons?: QueryList<PokemonComponent>;
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -20,8 +20,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   public pokemons: any[] = [];
   public pokemon: any[] = [];
   public selected_type: any;
-  private loaded_pokemons?: any[];
-  private loaded_components?: QueryList<PokemonComponent> = this.all_pokemons;
+  private loadedPokemons: Object[] = [];
+  private loadedComponents: QueryList<PokemonComponent> = this.allPokemons!;
 
   constructor(public poke_service: PokemonService) { };
   
@@ -32,12 +32,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   
   ngAfterViewInit(): void {
-    this.all_pokemons?.changes
+    this.allPokemons?.changes
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(t => {
         if(t.length == this.offset + this.number) {
-          this.loaded_components = t.map((e:any)=>e);
-          this.loaded_pokemons = this.pokemons;
+          this.loadedComponents = t.map((e:any)=>e);
+          this.loadedPokemons = this.pokemons;
         } 
       });
   };
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.poke_service.getData(n, offset)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((res: any) => {
-        this.pokemons.push(...Object.values(res.results));
+        this.pokemons.push(...res.results);
       });
     
   };
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   public loadMore(): void {
     this.offset += 12;
     this.selected_type = 'none';
-    this.pokemons = this.loaded_pokemons!;
+    this.pokemons = this.loadedPokemons!;
     this.getPokemons(this.number, this.offset);
   };
 
@@ -70,9 +70,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public sort_types(): void {
     if (this.selected_type != 'none') {
-      this.pokemons = this.loaded_components?.filter(poke => poke.types!.includes(this.selected_type)).map((poke: any) => poke = {name: poke.name, url: poke.url} )!;
+      this.pokemons = this.loadedComponents?.filter(poke => poke.types!.includes(this.selected_type)).map((poke: any) => poke = {name: poke.name, url: poke.url} )!;
     } else {
-      this.pokemons = this.loaded_pokemons!;
+      this.pokemons = this.loadedPokemons!;
     }
   }
 
