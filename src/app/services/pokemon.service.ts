@@ -3,6 +3,48 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
+export interface PokemonListItem {
+  name: string;
+  url: string;
+}
+
+export interface PokemonResponse {
+  results: PokemonListItem[];
+  count: number;
+  next: string;
+}
+
+export interface PokemonType {
+  slot: number;
+  type: {
+      name: string;
+  }
+}
+
+export interface PokemonSprite {
+  front_default: string;
+}
+
+export interface PokemonStats {
+  base_stat: number;
+  stat: {
+    name: string;
+  }
+}
+
+export interface Pokemon {
+  id: number;
+  name: string;
+  sprites: PokemonSprite;
+  types: PokemonType[];
+  stats: PokemonStats[];
+  weight: number;
+  moves: {
+    length: number;
+  }
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,15 +74,14 @@ export class PokemonService {
 
   constructor(private http: HttpClient) { }
 
-  public getData(n: number, offset: number): Observable<Object> {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/?limit=${n}&offset=${offset}`);
-  };
+  public getData(n: number, offset: number): Observable<PokemonResponse[]> {
+    return this.http.get<PokemonResponse[]>(`https://pokeapi.co/api/v2/pokemon/?limit=${n}&offset=${offset}`);
+  }
 
-  public getPokemon(url: string): Observable<Object> {
-    return this.http.get(url);
-  };
+  public getPokemon(url: string): Observable<Pokemon> {
+    return this.http.get<Pokemon>(url);
+  }
 
-  
   public getColor(c: string): string {
     return this.colors[c as keyof typeof this.colors].toString()
   }

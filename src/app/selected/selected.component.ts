@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { PokemonService } from '../services/pokemon.service';
+import { Pokemon, PokemonService, } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-selected',
@@ -14,18 +14,18 @@ export class SelectedComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe = new Subject<void>();
   
-  public image?: string;
-  public id?: number;
-  public name?: string;
-  public types?: string[];
-  public attack?: number;
-  public defense?: number;
-  public hp?: number;
-  public sp_attack?: number;
-  public sp_defense?: number;
-  public speed?: number;
-  public weight?: number;
-  public total_moves?: number;
+  public image: string = '';
+  public id: number = 0;
+  public name: string = '';
+  public types: string[] =[];
+  public attack: number = 0;
+  public defense: number = 0;
+  public hp: number = 0;
+  public sp_attack: number = 0;
+  public sp_defense: number = 0;
+  public speed: number = 0;
+  public weight: number = 0;
+  public total_moves: number = 0;
 
 
 
@@ -35,7 +35,7 @@ export class SelectedComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.poke_service.getPokemon(this.url!)
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((res: any) => {
+      .subscribe((res: Pokemon) => {
         this.image = res.sprites.front_default;
         this.id = res.id;
         this.name = res.name;
@@ -44,13 +44,13 @@ export class SelectedComponent implements OnInit, OnDestroy {
         this.weight = res.weight;
         this.total_moves = res.moves.length;
       });
-  };
+  }
 
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-  };
+  }
 
 
 }

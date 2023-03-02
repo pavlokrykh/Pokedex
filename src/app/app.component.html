@@ -10,16 +10,16 @@
 
             <div class="sort">
                 Sort by type:
-                <select name="typesort" [(ngModel)]="selected_type" (ngModelChange)="sort_types()">
-                    <option value="none">None</option>
-                    <option *ngFor="let v of poke_service.getTypes()" (value)="v">{{v}}</option>
+                <select name="typesort" [(ngModel)]="selectedType" (ngModelChange)="sortTypes()">
+                    <option value="none">All</option>
+                    <option *ngFor="let v of pokeService.getTypes()" (value)="v">{{v}}</option>
                 </select>
             </div>
             
             <div class="pokemons">
             
                 <div *ngFor="let p of pokemons">
-                    <app-pokemon [url]="p.url" (send_pokemon)="open_pokemon($event)"></app-pokemon>
+                    <app-pokemon [url]="p.url" (sendPokemon)="openPokemon($event)"></app-pokemon>
                 </div>
     
             </div>
