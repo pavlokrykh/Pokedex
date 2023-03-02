@@ -1,0 +1,7 @@
+<div class="wrap" (click)="open()">
+
+    <img [src]="image">
+    <p>{{name}}</p>
+    <p class="types"> <span *ngFor="let t of types" class="type" [style.background-color]="poke_service.getColor(t)">{{t}}</span></p>
+
+</div>

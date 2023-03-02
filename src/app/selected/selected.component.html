@@ -1,0 +1,16 @@
+<div class="wrap">
+    
+    <img [src]="image">
+    <p class="name">{{name}} #{{id}}</p>
+    <p class="types"> <span>Type: </span> <span *ngFor="let t of types" class="type" [style.background-color]="poke_service.getColor(t)">{{t}}</span></p>
+    <p> <span>Attack:    </span> {{attack}}</p>
+    <p> <span>Defense: </span> {{defense}}</p>
+    <p> <span>HP: </span> {{hp}}</p>
+    <p> <span>SP Attack: </span> {{sp_attack}}</p>
+    <p> <span>SP Defense: </span> {{sp_defense}}</p>
+    <p> <span>Speed: </span> {{speed}}</p>
+    <p> <span>Weight: </span> {{weight}}</p>
+    <p> <span>Total moves: </span> {{total_moves}}</p>
+    
+    <button type="button" (click)="close.emit()">x</button>
+</div>

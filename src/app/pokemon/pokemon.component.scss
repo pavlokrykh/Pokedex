@@ -1,0 +1,32 @@
+
+.wrap {
+    width: 120px;
+    height: 180px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.types {
+    display: flex;
+    justify-content: space-around;
+}
+.type {
+    padding: 5px;
+}
+span {
+    color: white;
+    border-radius: 5px;
+}
+
+img {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+

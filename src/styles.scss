@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: PokeFont;
+    src: url(assets/PKMN.ttf);
+}
+
+* {
+    font-family: PokeFont;
+    font-size: 12px;
+    
+    text-transform: capitalize;
+}

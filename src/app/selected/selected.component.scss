@@ -1,0 +1,65 @@
+
+.wrap {
+    text-align: center;
+    position: sticky;
+    background-color: white;
+    left: 22px;
+    top: 80px;
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.name {
+    width: 100%;
+    justify-content: center;
+}
+
+p {
+    display: flex;
+    justify-content:right;
+    margin-right: 10%;
+}
+span {
+    text-align: center;
+    width: 80%;
+    margin-right:10%;
+}
+
+
+.types {
+    margin-right: 5%;
+    span {
+        margin-right: 5%;
+    }
+}
+.type {
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+}
+
+
+button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 0;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+@media only screen and (max-width: 768px) { // 768px
+    [class="wrap"] {
+        position: fixed;
+        width: 80%;
+        left: 10%;
+    }
+}
